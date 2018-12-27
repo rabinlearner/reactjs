@@ -11,10 +11,20 @@ class ShopSingle extends React.Component {
         this.setState({ single: data })
 
     }
+    // logout = () => {
+    //     sessionStorage.removeItem("login");
+    //     this.props.location.state = undefined
+    //     alert("rabinawale")
+    // }
     render() {
+
         return (
             <div className="container">
-                <ShopSingleContainer data={this.state.single} />
+                <ShopSingleContainer
+                    data={this.state.single}
+                    id={this.props.match.params.id}
+                    // logout={this.logout}
+                    buttonToogle={this.props.location.state} />
             </div>
         )
     }

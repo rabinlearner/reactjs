@@ -3,16 +3,18 @@ import React, { Component } from 'react';
 import './App.css';
 import './Style/style.css';
 import Routess from './route';
+import { MyProvider } from './context';
 
-
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div>
-        <Routess />
-      </div>
-    );
+      <MyProvider>
+        <div>
+          <Routess />
+        </div>
+      </MyProvider>
+
+    )
   }
 }
-
 export default App;

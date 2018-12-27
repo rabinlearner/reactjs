@@ -42,3 +42,18 @@ content: " ";
     display: flex;
     margin: auto;
 }
+.buttonregisterorlogin{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.buttonregisterorlogin button:first-child{
+    margin-right: 5%;
+}
+
+.imagehomepageCaursole img{
+    height: 100vh!important;
+    width: 100%;
+
+}

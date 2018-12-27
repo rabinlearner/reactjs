@@ -3,12 +3,14 @@ import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { UserData } from '../../PostData';
 import { ClipLoader } from 'react-spinners';
 import { Redirect } from 'react-router-dom'
+import { MyContextConsumer } from '../../context';
 class Login extends React.Component {
     state = {
         username: undefined,
         email: undefined,
         loading: false,
-        redirect: false
+        redirect: false,
+        data: [],
     }
     onSubmit = (e) => {
         e.preventDefault();
@@ -19,8 +21,7 @@ class Login extends React.Component {
 
                     this.setState({ loading: false })
                     if (result.length) {
-                        sessionStorage.setItem("login", JSON.stringify(result));
-                        this.setState({ redirect: true })
+                        this.setState({ redirect: true, data: result })
                     } else {
                         alert("please enter the write email and username");
                     }
@@ -31,7 +32,9 @@ class Login extends React.Component {
                 console.log(e)
             }
         } else {
-            console.log("black")
+            this.setState({ loading: false })
+            alert("please enter the valid username and email id")
+
         }
 
     }
@@ -42,12 +45,24 @@ class Login extends React.Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect to="/" />
+            return (
+                <div>
+                    <MyContextConsumer>
+                        {this.state.data.length > 0 ?
+                            ({ login }) => login(this.state.data) :
+                            alert("not data")
+
+                        }
+                    </MyContextConsumer>
+                    <Redirect to="/shop" />
+                </div>
+            )
         }
-        if (sessionStorage.getItem("login")) {
+        if (localStorage.getItem("login")) {
             return <Redirect to="/" />
         }
         return (
+
             <div>
                 <div style={{ position: 'absolute', top: '20%', left: '50%', zIndex: '111111' }}>
                     <ClipLoader

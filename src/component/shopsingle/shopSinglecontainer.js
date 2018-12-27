@@ -1,20 +1,26 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-
+import LoginModal from '../modal/loginmodel';
+import { MyContextConsumer } from '../../context';
 class ShopSingleContainer extends React.Component {
     state = {
-        buttonToogle: false
+        loginmodel: false
     }
-    componentDidMount() {
-        const data = sessionStorage.getItem("login");
-        const parsed = JSON.parse(data);
-
-        if (parsed) {
-            this.setState({ buttonToogle: true })
-        }
-
+    toggleLoginModel = () => {
+        this.setState(() => {
+            return {
+                loginmodel: !this.state.loginmodel
+            };
+        })
     }
+    closeModal = () => {
+        this.setState({
+            loginmodel: false
+        })
+    }
+
+
     render() {
         return (
             <Grid>
@@ -22,17 +28,25 @@ class ShopSingleContainer extends React.Component {
                     <Col xs={12} md={6}>
                         <img src={this.props.data.url} />
                     </Col>
-                    <Col xs={6} md={6}>
+                    <Col xs={6} md={5}>
                         <h1>{this.props.data.title}</h1>
-                        {this.state.buttonToogle ?
-                            <button className="btn btn-primary" >Add To Cart</button>
-                            :
-                            <Link to="/Register" className="btn btn-primary">Register</Link>
-                        }
+                        <MyContextConsumer>
+                            {({ isAuth }) =>
+                                isAuth ?
+                                    <div>
+                                        <button className="btn btn-primary" >Add To Cart</button>
+                                    </div>
+                                    :
+                                    <div className="buttonregisterorlogin">
+                                        <button className="btn btn-primary" onClick={this.toggleLoginModel}>Login</button>
+                                        <button className="btn btn-primary">Register</button>
+                                    </div>
+                            }
+                        </MyContextConsumer>
 
                     </Col>
                 </Row>
-
+                <LoginModal toggle={this.state.loginmodel} closeModal={this.closeModal} id={this.props.id} />
             </Grid>
         )
     }
