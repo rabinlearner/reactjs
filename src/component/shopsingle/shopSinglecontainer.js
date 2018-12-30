@@ -5,12 +5,13 @@ import LoginModal from '../modal/loginmodel';
 import { MyContextConsumer } from '../../context';
 class ShopSingleContainer extends React.Component {
     state = {
-        loginmodel: false
+        loginmodel: false,
+        cartitem: []
     }
     toggleLoginModel = () => {
-        this.setState(() => {
+        this.setState((prevState) => {
             return {
-                loginmodel: !this.state.loginmodel
+                loginmodel: !prevState.loginmodel
             };
         })
     }
@@ -31,10 +32,10 @@ class ShopSingleContainer extends React.Component {
                     <Col xs={6} md={5}>
                         <h1>{this.props.data.title}</h1>
                         <MyContextConsumer>
-                            {({ isAuth }) =>
+                            {({ isAuth, incraseCounter }) =>
                                 isAuth ?
                                     <div>
-                                        <button className="btn btn-primary" >Add To Cart</button>
+                                        <button className="btn btn-primary" onClick={e => incraseCounter(this.props.cartItem)}>Add To Cart</button>
                                     </div>
                                     :
                                     <div className="buttonregisterorlogin">

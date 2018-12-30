@@ -5,7 +5,9 @@ const MyContext = React.createContext();
 
 class MyProvider extends React.Component {
     state = {
-        isAuth: false
+        isAuth: false,
+        counter: 0,
+        cartItem: []
     }
     componentDidMount() {
         const data = localStorage.getItem("login");
@@ -18,7 +20,9 @@ class MyProvider extends React.Component {
         this.setState({ isAuth: true })
     }
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.state.isAuth !== nextState.isAuth) {
+
+
+        if (this.state.isAuth !== nextState.isAuth || this.state.counter !== nextState.counter || this.state.cartItem !== nextState.cartItem) {
             return true
         } else {
             return false;
@@ -28,13 +32,18 @@ class MyProvider extends React.Component {
         localStorage.removeItem("login");
         this.setState({ isAuth: false })
     }
-
+    incraseCounter = (data) => {
+        this.setState({ counter: this.state.counter + 1, cartItem: data })
+    }
     render() {
+        console.log(this.state.cartItem)
         return (
             <MyContext.Provider value={{
                 isAuth: this.state.isAuth,
                 login: this.login,
-                logout: this.logout
+                logout: this.logout,
+                counter: this.state.counter,
+                incraseCounter: this.incraseCounter
 
             }}>
                 {this.props.children}

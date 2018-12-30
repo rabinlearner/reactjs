@@ -7,7 +7,7 @@ class AddtoCart extends React.Component {
     render() {
         return (
             <div>
-                <img src="" />
+                <p>this is cart Page</p>
             </div>
         )
     }

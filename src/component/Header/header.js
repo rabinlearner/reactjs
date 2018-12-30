@@ -1,8 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import MaterialIcon, { colorPalette } from 'material-icons-react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { MyContextConsumer } from '../../context';
+
 
 class Header extends React.Component {
 
@@ -35,19 +37,23 @@ class Header extends React.Component {
                                     </LinkContainer>
 
                             }
-
                         </MyContextConsumer>
+                        <LinkContainer to="/addtocart">
+                            <NavItem eventKey={1}>
+                                <React.Fragment>
+                                    <MaterialIcon icon="add_shopping_cart" color="white" size="13px" />
+                                    <MyContextConsumer>
+                                        {({ counter }) => <span>{counter}</span>}
 
+                                    </MyContextConsumer>
 
-
-
-                        <LinkContainer to="/signip">
-                            <NavItem eventKey={1}>Sigup</NavItem>
+                                </React.Fragment>
+                            </NavItem>
                         </LinkContainer>
 
                     </Nav>
-                </Navbar.Collapse >
-            </Navbar >
+                </Navbar.Collapse>
+            </Navbar>
         )
     }
 }

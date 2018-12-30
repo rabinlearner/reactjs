@@ -2,7 +2,7 @@ import React from 'react';
 import ShopSingleContainer from './shopSinglecontainer';
 class ShopSingle extends React.Component {
     state = {
-        single: []
+        single: [],
     }
 
     async componentDidMount() {
@@ -17,14 +17,15 @@ class ShopSingle extends React.Component {
     //     alert("rabinawale")
     // }
     render() {
-
         return (
             <div className="container">
                 <ShopSingleContainer
                     data={this.state.single}
                     id={this.props.match.params.id}
                     // logout={this.logout}
-                    buttonToogle={this.props.location.state} />
+                    buttonToogle={this.props.location.state}
+                    cartItem={this.state.single}
+                />
             </div>
         )
     }
